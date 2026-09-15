@@ -1,0 +1,12 @@
+{
+  "extends": "./backend/tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "./backend/src",
+    "baseUrl": "./backend",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  },
+  "include": ["backend/src"],
+  "exclude": ["node_modules", "backend/dist", "backend/prisma"]
+}
