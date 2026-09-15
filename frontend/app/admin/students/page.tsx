@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import api from '@/lib/axios';
@@ -27,7 +27,7 @@ interface StudentRow {
   academicYear?: string;
 }
 
-export default function AdminStudentsPage() {
+function StudentsContent() {
   const searchParams  = useSearchParams();
   const initialStatus = (searchParams.get('status') as UserStatus | null) ?? 'ALL';
 
@@ -146,5 +146,13 @@ export default function AdminStudentsPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function AdminStudentsPage() {
+  return (
+    <Suspense fallback={<LoadingSpinner />}>
+      <StudentsContent />
+    </Suspense>
   );
 }

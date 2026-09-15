@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import api from '@/lib/axios';
@@ -26,7 +26,7 @@ interface TeacherRow {
   department?: { code: string; name: string };
 }
 
-export default function AdminTeachersPage() {
+function TeachersContent() {
   const searchParams  = useSearchParams();
   const initialStatus = (searchParams.get('status') as UserStatus | null) ?? 'ALL';
 
@@ -133,5 +133,13 @@ export default function AdminTeachersPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function AdminTeachersPage() {
+  return (
+    <Suspense fallback={<LoadingSpinner />}>
+      <TeachersContent />
+    </Suspense>
   );
 }
