@@ -488,3 +488,125 @@ a:hover { color: var(--primary-hover); }
   --color-foreground: var(--text-primary);
   --font-sans: 'Inter', system-ui, sans-serif;
 }
+
+/* ─── Landing Page ───────────────────────────────────────────────────────────── */
+
+.landing-section {
+  padding: 5rem 1.5rem;
+}
+
+.landing-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Float animation for hero mockup */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+
+/* Scroll-triggered fade */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.landing-animate {
+  opacity: 0;
+  transform: translateY(24px);
+}
+.landing-animate.in-view {
+  animation: fadeInUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Responsive helpers for landing */
+.landing-desktop-only { display: flex !important; }
+.landing-mobile-only  { display: none  !important; }
+
+/* Hero two-column grid */
+.landing-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+/* Generic two-column */
+.landing-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+/* Feature grid */
+.landing-features-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+
+/* Problem grid */
+.landing-problem-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+/* Tech grid */
+.landing-tech-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+/* Flow steps row */
+.landing-flow-row {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+
+/* Preview cards row */
+.landing-preview-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 1024px) {
+  .landing-features-grid  { grid-template-columns: repeat(2, 1fr); }
+  .landing-preview-row    { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  .landing-section        { padding: 3rem 1rem; }
+  .landing-desktop-only   { display: none !important; }
+  .landing-mobile-only    { display: flex !important; }
+  .landing-hero-grid      { grid-template-columns: 1fr !important; gap: 2.5rem; }
+  .landing-two-col        { grid-template-columns: 1fr !important; gap: 2rem; }
+  .landing-features-grid  { grid-template-columns: 1fr 1fr; }
+  .landing-problem-grid   { grid-template-columns: 1fr !important; }
+  .landing-tech-grid      { grid-template-columns: 1fr !important; }
+  .landing-flow-row       { flex-wrap: wrap; gap: 0.5rem; }
+  .landing-preview-row    { grid-template-columns: 1fr !important; }
+}
+
+@media (max-width: 480px) {
+  .landing-features-grid  { grid-template-columns: 1fr; }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .landing-animate,
+  .landing-animate.in-view {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+  .landing-mockup-float { animation: none !important; }
+}
