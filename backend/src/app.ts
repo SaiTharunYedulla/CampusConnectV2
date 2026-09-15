@@ -29,7 +29,19 @@ const app = express();
 app.use(helmet());
 app.use(
   cors({
-    origin:      config.FRONTEND_URL,
+    origin: (origin, callback) => {
+      // Allow requests with no origin (like mobile apps, curl, or server-side calls)
+      if (!origin) return callback(null, true);
+      const allowed = [
+        config.FRONTEND_URL?.replace(/\/$/, ''),
+        'http://localhost:3000',
+      ].filter(Boolean);
+      
+      if (allowed.includes(origin) || origin.endsWith('.onrender.com')) {
+        return callback(null, true);
+      }
+      callback(new Error('CORS not allowed'));
+    },
     credentials: true,
     methods:     ['GET', 'POST', 'PATCH', 'DELETE', 'PUT', 'OPTIONS'],
   }),
